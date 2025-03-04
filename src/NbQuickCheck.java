@@ -5,13 +5,15 @@ public class NbQuickCheck {
 
   /**
    * Performs a pre-order traversal of the tree, printing each node on a separate line.
-   * Does nothing if the root is null or not present in the tree.
+   * Does nothing if the root is not present in the tree.
    *
    * @param tree the tree represented as a map of parent nodes to child lists
    * @param root the root node to start traversal from
    */
   public static void preOrder(Map<Integer, List<Integer>> tree, int root) {
-    
+    if(!tree.containsKey(root)) {
+      return;
+    }
   }
 
   /**
