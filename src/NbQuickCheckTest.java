@@ -75,6 +75,8 @@ public class NbQuickCheckTest {
 
   @Test
   public void testPreOrderSingleNode() {
+    // ASCII tree:
+    //    5
     Map<Integer, List<Integer>> tree = new HashMap<>();
     // A single node tree: key 5 with an empty list of children.
     tree.put(5, new ArrayList<>());
@@ -85,16 +87,15 @@ public class NbQuickCheckTest {
 
   @Test
   public void testPreOrderMultipleDepth() {
-    Map<Integer, List<Integer>> tree = new HashMap<>();
-    // Tree structure:
+    // ASCII tree:
     //         1
     //      /  |  \
     //     2   3   4
-    //          |
-    //          5
-    //         / \
-    //        6   7
-    // All nodes must be present as keys.
+    //         |
+    //         5
+    //        / \
+    //       6   7
+    Map<Integer, List<Integer>> tree = new HashMap<>();
     tree.put(1, Arrays.asList(2, 3, 4));
     tree.put(2, new ArrayList<>());
     tree.put(3, Arrays.asList(5));
@@ -111,15 +112,15 @@ public class NbQuickCheckTest {
 
   @Test
   public void testPreOrderUnbalancedTree() {
-    Map<Integer, List<Integer>> tree = new HashMap<>();
-    // Unbalanced tree:
+    // ASCII tree:
     //        10
-    //        |
-    //        5
-    //       / \
-    //      3   7
-    //           \
-    //            2
+    //         |
+    //         5
+    //        / \
+    //       3   7
+    //            \
+    //             2
+    Map<Integer, List<Integer>> tree = new HashMap<>();
     tree.put(10, Arrays.asList(5));
     tree.put(5, Arrays.asList(3, 7));
     tree.put(3, new ArrayList<>());
@@ -133,8 +134,12 @@ public class NbQuickCheckTest {
 
   @Test
   public void testPreOrderNotFoundRoot() {
+    // ASCII tree:
+    //      1
+    //     / \
+    //    2   3
+    // We call with root 100 which is not present in the tree.
     Map<Integer, List<Integer>> tree = new HashMap<>();
-    // Tree with keys 1,2,3 but we will call with root 100 which is not present.
     tree.put(1, Arrays.asList(2, 3));
     tree.put(2, new ArrayList<>());
     tree.put(3, new ArrayList<>());
@@ -145,13 +150,13 @@ public class NbQuickCheckTest {
 
   @Test
   public void testPreOrderNegativeValues() {
-    Map<Integer, List<Integer>> tree = new HashMap<>();
-    // Tree with negative values:
+    // ASCII tree:
     //         -1
     //       /    \
     //     -5     -3
-    //             |
-    //            -10
+    //              |
+    //             -10
+    Map<Integer, List<Integer>> tree = new HashMap<>();
     tree.put(-1, Arrays.asList(-5, -3));
     tree.put(-5, new ArrayList<>());
     tree.put(-3, Arrays.asList(-10));
@@ -175,13 +180,18 @@ public class NbQuickCheckTest {
 
   @Test
   public void testMinValSingleNode() {
+    // ASCII tree:
+    //    42
     Node<Integer> root = new Node<>(42);
     assertEquals(42, NbQuickCheck.minVal(root));
   }
 
   @Test
   public void testMinValMinAtRoot() {
-    // Minimum is at the root.
+    // ASCII tree:
+    //      -10
+    //     /    \
+    //    0      5
     Node<Integer> root = new Node<>(-10);
     Node<Integer> child1 = new Node<>(0);
     Node<Integer> child2 = new Node<>(5);
@@ -192,20 +202,30 @@ public class NbQuickCheckTest {
 
   @Test
   public void testMinValMinAtBranch() {
-    // Minimum is in a branch (not the root, not a leaf directly of the root).
+    // ASCII tree:
+    //       10
+    //      /  \
+    //     3    8
+    //    /
+    //   5
     Node<Integer> root = new Node<>(10);
     Node<Integer> child1 = new Node<>(3);
     Node<Integer> child2 = new Node<>(8);
-    Node<Integer> grandChild = new Node<>(-5);
+    Node<Integer> grandChild = new Node<>(5);
     child1.children.add(grandChild);
     root.children.add(child1);
     root.children.add(child2);
-    assertEquals(-5, NbQuickCheck.minVal(root));
+    assertEquals(3, NbQuickCheck.minVal(root));
   }
 
   @Test
   public void testMinValMinAtLeaf() {
-    // Minimum is at a leaf (deep in the tree).
+    // ASCII tree:
+    //       5
+    //      /  \
+    //    10    3
+    //           \
+    //           -1
     Node<Integer> root = new Node<>(5);
     Node<Integer> child1 = new Node<>(10);
     Node<Integer> child2 = new Node<>(3);
@@ -218,7 +238,10 @@ public class NbQuickCheckTest {
 
   @Test
   public void testMinValTie() {
-    // Two nodes with the same minimum value.
+    // ASCII tree:
+    //      5
+    //   /  |  \
+    //  2   2   3
     Node<Integer> root = new Node<>(5);
     Node<Integer> child1 = new Node<>(2);
     Node<Integer> child2 = new Node<>(2);
@@ -231,7 +254,16 @@ public class NbQuickCheckTest {
 
   @Test
   public void testMinValUnbalanced() {
-    // An unbalanced tree where the minimum is deep in one branch.
+    // ASCII tree:
+    //      10
+    //       |
+    //      15
+    //       |
+    //       7
+    //       |
+    //      20
+    //       |
+    //      -5
     Node<Integer> root = new Node<>(10);
     Node<Integer> child = new Node<>(15);
     Node<Integer> grandChild = new Node<>(7);
@@ -246,7 +278,12 @@ public class NbQuickCheckTest {
 
   @Test
   public void testMinValMultipleChildren() {
-    // A tree with a node having more than 3 children.
+    // ASCII tree:
+    //          0
+    //   /    /   \   \
+    // 10   -2    5    7
+    //            |
+    //           -1
     Node<Integer> root = new Node<>(0);
     Node<Integer> child1 = new Node<>(10);
     Node<Integer> child2 = new Node<>(-2);
